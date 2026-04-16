@@ -1,4 +1,3 @@
-const DUE_DATE = new Date("2026-04-17T18:00:00Z");
 const viewMode = document.getElementById("view-mode");
 const editMode = document.getElementById("edit-mode");
 const editBtn = document.querySelector('[data-testid="test-todo-edit-button"]');
@@ -63,7 +62,7 @@ function applyPriority(p) {
 
 function getTimeRemaining() {
   const now = Date.now();
-  const diff = DUE_DATE - now;
+  const diff = state.dueDate - now;
   const abs = Math.abs(diff);
 
   const mins = Math.floor(abs / 60000);
@@ -97,9 +96,22 @@ function getTimeRemaining() {
 function updateTimeRemaining() {
   const el = document.getElementById("time-remaining");
   const { text, cls } = getTimeRemaining();
+
   el.textContent = text;
   el.className = cls;
   el.setAttribute("aria-label", "Time remaining: " + text);
+
+  if (cls === "overdue") {
+    state.status = "Overdue";
+    state.priority = "High";
+
+    applyPriority("High");
+
+    const status = document.getElementById("status-badge");
+    status.textContent = "Overdue";
+    status.className = "badge status-overdue";
+    status.setAttribute("aria-label", "Status: Overdue");
+  }
 }
 
 document
