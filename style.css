@@ -207,6 +207,18 @@ time#time-remaining.ok {
   border-color: #ddd;
 }
 
+/* overdue indicator badge */
+#overdue-indicator {
+  color: #c0392b;
+  font-weight: 600;
+  /* margin-left: 6px; */
+  display: none;
+}
+
+#overdue-indicator.visible {
+  display: inline-block;
+}
+
 /* Action buttons */
 .actions {
   display: flex;
