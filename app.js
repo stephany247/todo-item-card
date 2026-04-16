@@ -11,9 +11,11 @@ const todoTitle = document.getElementById("todo-title");
 const todoDesc = document.getElementById("todo-description");
 const priorityBadge = document.getElementById("priority-badge");
 const priorityBar = document.getElementById("priority-indicator");
-// const statusBadge = document.getElementById("status-badge");
-// const statusControl = document.getElementById("status-control");
+const statusBadge = document.getElementById("status-badge");
+const statusControl = document.getElementById("status-control");
 const dueDateEl = document.getElementById("due-date-el");
+const checkbox = document.getElementById("complete-toggle");
+const card = document.getElementById("todo-card");
 
 const state = {
   title: "Design new onboarding flow for mobile app",
@@ -60,6 +62,40 @@ function applyPriority(p) {
   priorityBar.style.background = PRIORITY_BAR_COLOR[p];
 }
 
+// status
+const STATUS_CLASS = {
+  Pending: "badge status-pending",
+  "In Progress": "badge status-progress",
+  Done: "badge status-done",
+};
+
+function applyStatus(s) {
+  state.status = s;
+
+  // badge
+  statusBadge.textContent = s;
+  statusBadge.className = STATUS_CLASS[s] || "badge";
+  statusBadge.setAttribute("aria-label", "Status: " + s);
+
+  // dropdown sync
+  statusControl.value = s;
+
+  // checkbox sync
+  const isDone = s === "Done";
+  checkbox.checked = isDone;
+
+  card.classList.toggle("completed", isDone);
+  todoTitle.classList.toggle("struck", isDone);
+}
+
+statusControl.addEventListener("change", () => {
+  applyStatus(statusControl.value);
+});
+
+checkbox.addEventListener("change", () => {
+  applyStatus(checkbox.checked ? "Done" : "Pending");
+});
+
 function getTimeRemaining() {
   const now = Date.now();
   const diff = state.dueDate - now;
@@ -102,15 +138,18 @@ function updateTimeRemaining() {
   el.setAttribute("aria-label", "Time remaining: " + text);
 
   if (cls === "overdue") {
-    state.status = "Overdue";
-    state.priority = "High";
-
     applyPriority("High");
 
-    const status = document.getElementById("status-badge");
-    status.textContent = "Overdue";
-    status.className = "badge status-overdue";
-    status.setAttribute("aria-label", "Status: Overdue");
+    statusBadge.textContent = "Overdue";
+    statusBadge.className = "badge status-overdue";
+    statusBadge.setAttribute("aria-label", "Status: Overdue");
+
+    statusControl.disabled = true;
+  } else {
+    statusControl.disabled = false;
+
+    // restore normal status UI
+    applyStatus(state.status);
   }
 }
 
