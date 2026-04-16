@@ -19,6 +19,15 @@ body {
   padding: 2rem 1rem;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 /* Card */
 article {
   background: #fff;
@@ -31,6 +40,22 @@ article {
 
 article.completed {
   opacity: 0.6;
+}
+
+#view-mode,
+#edit-mode {
+  padding-left: 10px;
+}
+
+.priority-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  transition: background 0.2s;
+  background: #c0392b;
 }
 
 /* Header row */
@@ -126,6 +151,13 @@ time#time-remaining.ok {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 1rem;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* Badges */
@@ -243,9 +275,173 @@ li[data-testid="test-todo-tag-design"] {
   border-color: #e9d5ff;
 }
 
+/* collapsible description */
+.collapsible {
+  overflow: hidden;
+}
+
+.collapsible.collapsed {
+  max-height: 3.2em;
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+.collapsible.expanded {
+  max-height: 600px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: #5046e5;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 0;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.expand-btn:focus {
+  outline: 2px solid #5046e5;
+  outline-offset: 2px;
+}
+
+.overdue-indicator {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+  margin-bottom: 0.75rem;
+}
+
+/* status select  */
+select#status-control {
+  font-size: 12px;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+select#status-control:focus {
+  outline: 2px solid #5046e5;
+  outline-offset: 2px;
+}
+
+/* edit form  */
+#edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group textarea,
+.form-group select {
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: 2px solid #5046e5;
+  outline-offset: 2px;
+  border-color: #5046e5;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button[data-testid="test-todo-save-button"] {
+  font-size: 13px;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #5046e5;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button[data-testid="test-todo-save-button"]:hover {
+  background: #3730c8;
+}
+button[data-testid="test-todo-save-button"]:focus {
+  outline: 2px solid #5046e5;
+  outline-offset: 2px;
+}
+
+button[data-testid="test-todo-cancel-button"] {
+  font-size: 13px;
+  padding: 7px 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: transparent;
+  color: #555;
+  cursor: pointer;
+}
+
+button[data-testid="test-todo-cancel-button"]:hover {
+  background: #f5f5f5;
+}
+button[data-testid="test-todo-cancel-button"]:focus {
+  outline: 2px solid #5046e5;
+  outline-offset: 2px;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   article {
     padding: 1.25rem;
+  }
+  .form-row {
+    flex-direction: column;
+  }
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
