@@ -18,6 +18,8 @@ const checkbox = document.getElementById("complete-toggle");
 const card = document.getElementById("todo-card");
 const timeEl = document.getElementById("time-remaining");
 const overdueEl = document.getElementById("overdue-indicator");
+const collapsible = document.getElementById("collapsible-section");
+const expandToggle = document.getElementById("expand-toggle");
 
 const state = {
   title: "Design new onboarding flow for mobile app",
@@ -29,6 +31,7 @@ const state = {
 };
 
 let timer = setInterval(updateTimeRemaining, 30000);
+const COLLAPSE_THRESHOLD = 120;
 
 // helper functions
 function pad(n) {
@@ -172,6 +175,31 @@ function updateTimeRemaining() {
 updateTimeRemaining();
 timer = setInterval(updateTimeRemaining, 30000);
 
+// expand/collapse
+let isExpanded = false;
+
+function initCollapsible() {
+  const isLong = state.description.length > COLLAPSE_THRESHOLD;
+  expandToggle.hidden = !isLong;
+
+  if (isLong) {
+    collapsible.classList.add("collapsed");
+    isExpanded = false;
+    expandToggle.setAttribute("aria-expanded", "false");
+    expandToggle.textContent = "Show more";
+  } else {
+    collapsible.classList.add("expanded");
+  }
+}
+
+expandToggle.addEventListener("click", () => {
+  isExpanded = !isExpanded;
+  collapsible.classList.toggle("collapsed", !isExpanded);
+  collapsible.classList.toggle("expanded", isExpanded);
+  expandToggle.setAttribute("aria-expanded", String(isExpanded));
+  expandToggle.textContent = isExpanded ? "Show less" : "Show more";
+});
+
 // edit mode
 function openEdit() {
   // fill inputs with current state
@@ -222,6 +250,7 @@ saveBtn.addEventListener("click", () => {
   dueDateEl.textContent = "Due " + formatDueDate(state.dueDate);
   dueDateEl.setAttribute("datetime", state.dueDate.toISOString());
 
+  initCollapsible();
   updateTimeRemaining();
   closeEdit();
 });

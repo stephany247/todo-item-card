@@ -107,7 +107,7 @@ p {
   font-size: 14px;
   color: #555;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Meta row (due date + time remaining) */
@@ -216,7 +216,7 @@ time#time-remaining.ok {
 }
 
 #overdue-indicator.visible {
- display: inline-block;
+  display: inline-block;
   font-size: 11px;
   font-weight: 600;
   padding: 3px 10px;
@@ -320,16 +320,19 @@ li[data-testid="test-todo-tag-design"] {
   color: #5046e5;
   font-size: 12px;
   cursor: pointer;
-  padding: 2px 0;
-  margin-bottom: 0.75rem;
+  padding: 2px 4px;
+  margin-bottom: 1.75rem;
   display: block;
 }
 
 .expand-btn:focus {
-  outline: 2px solid #5046e5;
-  outline-offset: 2px;
+  outline: none;
 }
 
+.expand-btn:hover {
+  background: none;
+  color: #5146e5ef;
+}
 
 /* status select  */
 select#status-control {
