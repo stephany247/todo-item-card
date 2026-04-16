@@ -3,6 +3,28 @@ const viewMode = document.getElementById("view-mode");
 const editMode = document.getElementById("edit-mode");
 const editBtn = document.querySelector('[data-testid="test-todo-edit-button"]');
 const cancelBtn = document.getElementById("cancel-btn");
+const editTitleInput = document.getElementById("edit-title-input");
+const editDescInput = document.getElementById("edit-description-input");
+const editPriority = document.getElementById("edit-priority-select");
+const editDueDate = document.getElementById("edit-due-date-input");
+
+const state = {
+  title: "Design new onboarding flow for mobile app",
+  description:
+    "Create wireframes and prototypes for the revamped mobile onboarding experience. Coordinate with the UX team on brand guidelines and accessibility requirements. This includes user research synthesis, low-fidelity sketches, high-fidelity mockups, and handoff documentation for the engineering team.",
+  priority: "High",
+  dueDate: new Date("2026-04-16T18:00:00Z"),
+  status: "In Progress",
+};
+
+// helper functions
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+function toLocalDatetimeValue(date) {
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
 
 function getTimeRemaining() {
   const now = Date.now();
@@ -70,24 +92,18 @@ document
 updateTimeRemaining();
 setInterval(updateTimeRemaining, 60000);
 
+// edit mode
 function openEdit() {
-  viewMode.hidden = true;
-  editMode.hidden = false;
-}
+  // fill inputs with current state
+  editTitleInput.value = state.title;
+  editDescInput.value = state.description;
+  editPriority.value = state.priority;
+  editDueDate.value = toLocalDatetimeValue(state.dueDate);
 
-function closeEdit() {
-  viewMode.hidden = false;
-  editMode.hidden = true;
-}
-
-editBtn.addEventListener("click", openEdit);
-cancelBtn.addEventListener("click", closeEdit);
-
-function openEdit() {
   viewMode.hidden = true;
   editMode.hidden = false;
 
-  document.getElementById("edit-title-input").focus();
+  editTitleInput.focus();
 }
 
 function closeEdit() {
@@ -96,3 +112,6 @@ function closeEdit() {
 
   editBtn.focus();
 }
+
+editBtn.addEventListener("click", openEdit);
+cancelBtn.addEventListener("click", closeEdit);

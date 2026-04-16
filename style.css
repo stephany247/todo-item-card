@@ -75,7 +75,7 @@ article.completed {
   flex: 1;
 }
 
-input {
+input[type="checkbox"] {
   width: 18px;
   height: 18px;
   margin-top: 3px;
@@ -84,7 +84,7 @@ input {
   accent-color: #5046e5;
 }
 
-input:focus {
+input[type="checkbox"]:focus {
   outline: 2px solid #5046e5;
   outline-offset: 2px;
 }
