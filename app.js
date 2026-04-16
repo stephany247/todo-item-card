@@ -28,6 +28,8 @@ const state = {
   status: "In Progress",
 };
 
+let timer = setInterval(updateTimeRemaining, 30000);
+
 // helper functions
 function pad(n) {
   return String(n).padStart(2, "0");
@@ -133,8 +135,17 @@ function updateTimeRemaining() {
     timeEl.textContent = "Completed";
     timeEl.className = "done";
     timeEl.setAttribute("aria-label", "Task completed");
+    clearInterval(timer);
+    timer = null;
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
 
     return;
+  }
+  if (state.status !== "Done" && !timer) {
+    timer = setInterval(updateTimeRemaining, 30000);
   }
 
   const { text, cls } = getTimeRemaining();
@@ -152,14 +163,14 @@ function updateTimeRemaining() {
     // document.getElementById("overdue-indicator").style.display = "block";
     overdueEl.classList.add("visible");
   } else {
-    applyPriority(state.priority); 
+    applyPriority(state.priority);
     applyStatus(state.status);
     overdueEl.classList.remove("visible");
   }
 }
 
 updateTimeRemaining();
-setInterval(updateTimeRemaining, 60000);
+timer = setInterval(updateTimeRemaining, 30000);
 
 // edit mode
 function openEdit() {

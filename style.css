@@ -216,7 +216,15 @@ time#time-remaining.ok {
 }
 
 #overdue-indicator.visible {
-  display: inline-block;
+ display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f5c6c6;
+  margin-bottom: 0.75rem;
 }
 
 /* Action buttons */
@@ -322,17 +330,6 @@ li[data-testid="test-todo-tag-design"] {
   outline-offset: 2px;
 }
 
-.overdue-indicator {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 99px;
-  background: #fff0f0;
-  color: #c0392b;
-  border: 1px solid #f5c6c6;
-  margin-bottom: 0.75rem;
-}
 
 /* status select  */
 select#status-control {
