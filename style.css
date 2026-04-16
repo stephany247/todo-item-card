@@ -36,6 +36,8 @@ article {
   padding: 1.5rem;
   width: 100%;
   max-width: 480px;
+  position: relative;
+  overflow: hidden;
 }
 
 article.completed {

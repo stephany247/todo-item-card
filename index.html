@@ -9,6 +9,14 @@
   <body>
     <main class="page">
       <article data-testid="test-todo-card" id="todo-card">
+        <!-- priority indicator -->
+        <div
+          data-testid="test-todo-priority-indicator"
+          id="priority-indicator"
+          class="priority-indicator"
+        ></div>
+
+        <!-- view mode -->
         <div id="view-mode">
           <!-- Header: checkbox + title + priority -->
           <div class="card-header">
@@ -24,6 +32,7 @@
               </h2>
             </label>
             <span
+              id="priority-badge"
               data-testid="test-todo-priority"
               class="badge priority-high"
               aria-label="Priority: High"
@@ -33,7 +42,7 @@
           </div>
 
           <!-- Description -->
-          <p data-testid="test-todo-description">
+          <p id="todo-description" data-testid="test-todo-description">
             Create wireframes and prototypes for the revamped mobile onboarding
             experience. Coordinate with the UX team on brand guidelines and
             accessibility requirements.
@@ -42,6 +51,7 @@
           <!-- Due date + time remaining -->
           <div class="meta">
             <time
+              id="due-date-el"
               data-testid="test-todo-due-date"
               datetime="2026-04-17T18:00:00Z"
             >
@@ -151,10 +161,18 @@
             </div>
 
             <div class="form-actions">
-              <button data-testid="test-todo-save-button" id="save-btn">
+              <button
+                type="button"
+                data-testid="test-todo-save-button"
+                id="save-btn"
+              >
                 Save
               </button>
-              <button data-testid="test-todo-cancel-button" id="cancel-btn">
+              <button
+                type="button"
+                data-testid="test-todo-cancel-button"
+                id="cancel-btn"
+              >
                 Cancel
               </button>
             </div>
